@@ -1,11 +1,9 @@
 sudo apt update
-sudo apt install fontconfig openjdk-17-jre -y
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-  https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo deb [trusted=yes] \
-  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt upgrade -y
+sudo apt install openjdk-11-jdk
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+sudo sh -c 'echo deb [trusted=yes] http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt update
-sudo apt install Jenkins -y
-sudo systemctl enable Jenkins
+sudo apt install jenkins
+sudo systemctl enable jenkins
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
